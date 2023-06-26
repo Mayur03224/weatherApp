@@ -18,6 +18,7 @@ window.addEventListener("load", () => {
 
 const getLocation = () => {
   navigator.geolocation.getCurrentPosition((pos) => {
+    console.log(`Latitude : ${pos.coords.latitude} and longitude : ${pos.coords.longitude} `)
     const latitude = pos.coords.latitude;
     const longitude = pos.coords.longitude;
     fetchWeatherData(latitude, longitude);
@@ -38,26 +39,14 @@ const fetchWeatherData = async (latitude, longitude) => {
   }
 };
 
-// let history=[]
-
-// const data = fetchWeatherData().then((data)=>{
-//   console.log(data)
-//   const mapHistory = history.push(data)
-//   const jsondata = JSON.stringify(mapHistory);
-//   window.localStorage.setItem('userHistory', jsondata)
-// }).catch((err)=>{
-//   console.log(err)
-// })
-// data()
-
 function showData(javascriptObj) {
   if (javascriptObj.message == "city not found") {
-    console.log(javascriptObj)
     cityName.innerHTML = `${javascriptObj.message}`;
     country.innerHTML = "";
     windSpeed.innerHTML = "";
     humadity.innerHTML = "";
   } else {
+    console.log(javascriptObj)
     cityName.innerHTML = javascriptObj.name;
     country.innerHTML = javascriptObj.sys.country;
     humadity.innerHTML = `Humadity ${javascriptObj.main.humidity}%`;
@@ -66,25 +55,6 @@ function showData(javascriptObj) {
     console.log(icon);
     var iconurl = `http://openweathermap.org/img/w/${icon}.png`;
     image.src = `${iconurl}`;
-
-    // if (desc==''){
-    // console.log(`sorry there is no image`)
-    // errorMsg.innerHTML='there is no image for this weather'
-    // }
-    // else if (desc == 'rain') {
-    //   image.src="../images/rain.png"
-    // }
-    // else if (desc == 'few clouds') {
-    //   image.src="../images/mist.png"
-    // }
-    // else if (desc == 'snow') {
-    //   image.src="../images/snow.png"
-    // }
-
-    // else{
-    //       image.src="../images/localimage"
-
-    // }
   }
 }
 
